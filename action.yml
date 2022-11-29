@@ -1,0 +1,5 @@
+name: 'jscpd'
+description: 'Detect copy/paste in PRs'
+runs:
+  using: 'node16'
+  main: 'index.js'

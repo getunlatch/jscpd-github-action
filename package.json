@@ -1,0 +1,32 @@
+{
+  "name": "jscpd-github-action",
+  "version": "1.0.0",
+  "description": "A github action that runs jscpd and add comments to pull request with warning on modified chunks containing duplicated code",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/getunlatch/jscpd-github-action.git"
+  },
+  "keywords": [
+    "jscpd",
+    "github",
+    "action"
+  ],
+  "author": "olivier adam",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/getunlatch/jscpd-github-action/issues"
+  },
+  "homepage": "https://github.com/getunlatch/jscpd-github-action#readme",
+  "dependencies": {
+    "@actions/core": "^1.10.0",
+    "@actions/github": "^5.1.1",
+    "jscpd": "^3.5.1",
+    "node-fetch": "^3.3.0",
+    "parse-diff": "^0.10.0"
+  }
+}

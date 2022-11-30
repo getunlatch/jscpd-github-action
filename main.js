@@ -48,6 +48,7 @@ function buildViolations(all, changedRanges) {
       [b, a],
     ]) {
       if (!(us.sourceId in changedRanges)) {
+        core.debug(`ignoring ${us.sourceId} because not changed by PR`);
         continue;
       }
       let intersects = changedRanges[us.sourceId].some(
@@ -55,6 +56,10 @@ function buildViolations(all, changedRanges) {
       );
       if (intersects) {
         result.push({ us, them });
+      } else {
+        core.debug(
+          `ignoring ${us.sourceId}:${us.start.line}-${us.end.line} because duplication does not intersect changes made by pr`
+        );
       }
     }
   }

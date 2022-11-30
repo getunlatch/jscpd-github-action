@@ -25,6 +25,7 @@
   "dependencies": {
     "@actions/core": "^1.10.0",
     "@actions/github": "^5.1.1",
+    "@jscpd/leveldb-store": "^3.5.1",
     "jscpd": "^3.5.1",
     "node-fetch": "^3.3.0",
     "parse-diff": "^0.10.0"

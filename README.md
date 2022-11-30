@@ -8,6 +8,8 @@ You can instal `jscpd` in local and run it in your repository to find all duplic
 
 You can configure ignored patterns and other options by commiting a [.jscpd.json](https://github.com/kucherenko/jscpd/tree/master/packages/jscpd#config-file) file in your repository.
 
+If you have a large repository, you'll run into out of memory issue except if you use the [leveldb store](https://github.com/kucherenko/jscpd/tree/master/packages/jscpd#store).
+
 ## Example usage
 
 ```yaml

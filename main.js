@@ -6,22 +6,6 @@ import { detectClones } from "jscpd";
 import fs from "fs";
 import path from "path";
 
-async function getChangedRanges2(diffUrl) {
-  const response = await fetch(diffUrl);
-  const diffText = await response.text();
-  const diff = parseDiff(diffText);
-  /** maps files to a list of {from:int, to:int} */
-  const changedRanges = {};
-  for (const file of diff) {
-    const ranges = [];
-    for (const c of file.chunks) {
-      ranges.push({ start: c.newStart, end: c.newStart + c.newLines });
-    }
-    changedRanges[file.to] = ranges;
-  }
-  return changedRanges;
-}
-
 async function getChangedRanges(diffUrl) {
   const response = await fetch(diffUrl);
   const diffText = await response.text();
@@ -78,7 +62,9 @@ function buildViolations(all, changedRanges) {
 }
 
 async function main() {
-  const payload = JSON.stringify(github.context.payload, undefined, 2);
+  const payload = github.context.payload;
+  core.debug(`payload: ${JSON.stringify(payload)}`);
+
   if (!payload.pull_request) {
     core.setFailed("This action only works on pull_request events");
     return;
@@ -89,6 +75,7 @@ async function main() {
   const cpdPromise = runJsCpd();
   let changedRanges = await changedRangesPromise;
   let cpd = await cpdPromise;
+  core.debug(`changedRanges: ${JSON.stringify(changedRanges)}`);
   const result = buildViolations(cpd, changedRanges);
   for (const r of result) {
     core.notice(

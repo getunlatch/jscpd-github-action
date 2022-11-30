@@ -1,5 +1,5 @@
-import "@actions/core";
-import "@actions/github";
+import core from "@actions/core";
+import github from "@actions/github";
 import fetch from "node-fetch";
 import parseDiff from "parse-diff";
 import { detectClones } from "jscpd";
@@ -79,6 +79,10 @@ function buildViolations(all, changedRanges) {
 
 async function main() {
   const payload = JSON.stringify(github.context.payload, undefined, 2);
+  if (!payload.pull_request) {
+    core.setFailed("This action only works on pull_request events");
+    return;
+  }
   const diffUrl = payload.pull_request.diff_url;
   // const diffUrl = "https://github.com/oadam/wordle_solver/commit/34903f7d20c831ea139af606e37646b3cae9a5a7.diff";
   const changedRangesPromise = getChangedRanges(diffUrl);

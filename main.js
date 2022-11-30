@@ -7,8 +7,9 @@ import path from "path";
 import { Octokit } from "octokit";
 
 async function getChangedRanges(repo, pull_number) {
+  const token = core.getInput("repo-token", { required: true });
   const octokit = new Octokit({
-    auth: process.env.TOKEN,
+    auth: token,
   });
   const { data: diffText } = await octokit.rest.pulls.get({
     ...repo,

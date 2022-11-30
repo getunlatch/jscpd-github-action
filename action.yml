@@ -3,3 +3,6 @@ description: 'Detect copy/paste in PRs'
 runs:
   using: 'node16'
   main: 'main.js'
+inputs:
+  repo-token:
+    description: 'The GITHUB_TOKEN secret'

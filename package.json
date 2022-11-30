@@ -27,7 +27,7 @@
     "@actions/github": "^5.1.1",
     "@jscpd/leveldb-store": "^3.5.1",
     "jscpd": "^3.5.1",
-    "node-fetch": "^3.3.0",
+    "octokit": "^2.0.10",
     "parse-diff": "^0.10.0"
   }
 }

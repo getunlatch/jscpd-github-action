@@ -1,14 +1,22 @@
 import core from "@actions/core";
 import github from "@actions/github";
-import fetch from "node-fetch";
 import parseDiff from "parse-diff";
 import { detectClones } from "jscpd";
 import fs from "fs";
 import path from "path";
+import Octokit from "octokit";
 
-async function getChangedRanges(diffUrl) {
-  const response = await fetch(diffUrl);
-  const diffText = await response.text();
+async function getChangedRanges(repo, pull_number) {
+  const octokit = new Octokit({
+    auth: process.env.TOKEN,
+  });
+  const { data: diffText } = await octokit.rest.pulls.get({
+    ...repo,
+    pull_number,
+    mediaType: {
+      format: "diff",
+    },
+  });
   const diff = parseDiff(diffText);
   /** maps files to a list of {from:int, to:int} */
   const changedRanges = {};
@@ -74,9 +82,10 @@ async function main() {
     core.setFailed("This action only works on pull_request events");
     return;
   }
-  const diffUrl = payload.pull_request.diff_url;
-  // const diffUrl = "https://github.com/oadam/wordle_solver/commit/34903f7d20c831ea139af606e37646b3cae9a5a7.diff";
-  const changedRangesPromise = getChangedRanges(diffUrl);
+  const changedRangesPromise = getChangedRanges(
+    github.context.repo,
+    payload.pull_request.number
+  );
   const cpdPromise = runJsCpd();
   let changedRanges = await changedRangesPromise;
   let cpd = await cpdPromise;

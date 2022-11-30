@@ -52,7 +52,7 @@ function buildViolations(all, changedRanges) {
         continue;
       }
       let intersects = changedRanges[us.sourceId].some(
-        (r) => r.end > us.start.line && r.start < us.end.line
+        (r) => r.end >= us.start.line && r.start <= us.end.line
       );
       if (intersects) {
         result.push({ us, them });

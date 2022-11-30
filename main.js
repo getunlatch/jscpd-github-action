@@ -84,9 +84,9 @@ async function main() {
   const result = buildViolations(cpd, changedRanges);
   for (const r of result) {
     core.notice(
-      `see ${r.them.sourceId} (${r.them.start.line}-${r.them.end.line})`,
+      `same code found in ${r.them.sourceId}, lines ${r.them.start.line} to ${r.them.end.line}`,
       {
-        title: "Copy/pasted code",
+        title: "duplicated code",
         file: r.us.sourceId,
         startLine: r.us.start.line,
         endLine: r.us.end.line,

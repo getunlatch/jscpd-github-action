@@ -4,7 +4,7 @@ import parseDiff from "parse-diff";
 import { detectClones } from "jscpd";
 import fs from "fs";
 import path from "path";
-import Octokit from "octokit";
+import { Octokit } from "octokit";
 
 async function getChangedRanges(repo, pull_number) {
   const octokit = new Octokit({
@@ -102,6 +102,9 @@ async function main() {
       }
     );
   }
+  core.notice(
+    `repository contains ${cpd.length} duplications.\n${result.length} duplications were part of this PR and were annotated`
+  );
 }
 
 try {

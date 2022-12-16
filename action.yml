@@ -1,4 +1,4 @@
-name: 'jscpd'
+name: 'pull-requests-jscpd'
 description: 'Detect copy/paste in PRs'
 runs:
   using: 'node16'

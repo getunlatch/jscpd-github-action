@@ -6,3 +6,6 @@ runs:
 inputs:
   repo-token:
     description: 'The GITHUB_TOKEN secret'
+branding:
+  icon: 'search'
+  color: 'blue'

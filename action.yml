@@ -1,7 +1,7 @@
 name: 'jscpd'
 description: 'Detect copy/paste in PRs'
 runs:
-  using: 'node16'
+  using: 'node20'
   main: 'main.js'
 inputs:
   repo-token:
